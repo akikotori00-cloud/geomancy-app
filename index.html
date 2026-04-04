@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ジオマンシー占い</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: #f5f5f5;
+    }
+
+    img {
+      width: 120px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    #result {
+      margin-top: 20px;
+    }
+
+    .good { color: green; }
+    .bad { color: red; }
+    .neutral { color: gray; }
+
+  </style>
+</head>
+<body>
+
+<h1>ジオマンシー占い</h1>
+
+<button onclick="drawCard()">願いをこめてクリック</button>
+
+<div id="result">
+  <img id="cardImage" src="" alt="">
+  <h2 id="cardName"></h2>
+  <p id="fortune"></p>
+  <p id="meaning"></p>
+  <h3 id="investment"></h3>
+</div>
+
+<script>
+const cards = [
+  {
+    name: "Via－道",
+    fortune: "中立",
+    meaning: "変化・流れ",
+    investment: "様子見",
+    image: "via.svg"
+  },
+  {
+    name: "Populus－人々・大衆",
+    fortune: "中立",
+    meaning: "流される・不確定",
+    investment: "様子見",
+    image: "populus.svg"
+  },
+  {
+    name: "Fortuna Major－大きな運命",
+    fortune: "吉",
+    meaning: "大きな成功",
+    investment: "買い",
+    image: "fortuna_major.svg"
+  },
+  {
+    name: "Fortuna Minor－小さな運命",
+    fortune: "中立",
+    meaning: "一時的な成功",
+    investment: "様子見",
+    image: "fortuna_minor.svg"
+  },
+  {
+    name: "Acquisitio－獲得",
+    fortune: "吉",
+    meaning: "獲得・利益",
+    investment: "買い",
+    image: "acquisitio.svg"
+  },
+  {
+    name: "Amissio－損失",
+    fortune: "凶",
+    meaning: "損失・手放す",
+    investment: "売り",
+    image: "amissio.svg"
+  },
+  {
+    name: "Laetitia－喜び",
+    fortune: "吉",
+    meaning: "喜び・上昇",
+    investment: "買い",
+    image: "laetitia.svg"
+  },
+  {
+    name: "Tristitia－悲しみ",
+    fortune: "凶",
+    meaning: "停滞・下降",
+    investment: "売り",
+    image: "tristitia.svg"
+  },
+  {
+    name: "Puer－少年",
+    fortune: "中立",
+    meaning: "衝動・攻撃性",
+    investment: "様子見",
+    image: "puer.svg"
+  },
+  {
+    name: "Puella－少女",
+    fortune: "吉",
+    meaning: "調和・穏やか",
+    investment: "買い",
+    image: "puella.svg"
+  },
+  {
+    name: "Conjunctio－結合",
+    fortune: "吉",
+    meaning: "結合・チャンス",
+    investment: "買い",
+    image: "conjunctio.svg"
+  },
+  {
+    name: "Carcer－刑務所",
+    fortune: "凶",
+    meaning: "制限・停滞",
+    investment: "様子見",
+    image: "carcer.svg"
+  },
+  {
+    name: "Rubeus－赤",
+    fortune: "凶",
+    meaning: "混乱・危険",
+    investment: "売り",
+    image: "rubeus.svg"
+  },
+  {
+    name: "Albus－白",
+    fortune: "吉",
+    meaning: "冷静・知性",
+    investment: "様子見",
+    image: "albus.svg"
+  },
+  {
+    name: "Caput Draconis－ドラゴンの頭",
+    fortune: "吉",
+    meaning: "始まり・発展",
+    investment: "買い",
+    image: "caput_draconis.svg"
+  },
+  {
+    name: "Cauda Draconis－ドラゴンの尾",
+    fortune: "凶",
+    meaning: "終わり・損失",
+    investment: "売りならばよし",
+    image: "cauda_draconis.svg"
+  }
+];
+
+function drawCard() {
+  const random = Math.floor(Math.random() * cards.length);
+  const card = cards[random];
+
+  document.getElementById("cardImage").src = card.image;
+  document.getElementById("cardName").textContent = card.name;
+  document.getElementById("meaning").textContent = "意味：" + card.meaning;
+  document.getElementById("investment").textContent = "投資判断：" + card.investment;
+
+  const fortuneEl = document.getElementById("fortune");
+  fortuneEl.textContent = "吉凶：" + card.fortune;
+
+  fortuneEl.className = "";
+  if (card.fortune === "吉") fortuneEl.classList.add("good");
+  if (card.fortune === "凶") fortuneEl.classList.add("bad");
+  if (card.fortune === "中立") fortuneEl.classList.add("neutral");
+}
+</script>
+
+</body>
+</html>
