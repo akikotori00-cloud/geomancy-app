@@ -8,6 +8,7 @@
    <style>
      body {
        font-family: "Segoe UI", sans-serif;
+       font-size: 22px; /* ← 全体文字を少し大きく */
        background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
        margin: 0;
        padding: 20px;
@@ -27,11 +28,16 @@
 
      h1 {
        margin-bottom: 20px;
+       font-size: 28px;
+     }
+
+     h2 {
+       font-size: 26px;
      }
 
      button {
-       padding: 14px 24px;
-       font-size: 18px;
+       padding: 16px 26px;
+       font-size: 20px;
        border: none;
        border-radius: 10px;
        background: #4CAF50;
@@ -45,7 +51,7 @@
      }
 
      img {
-       width: 140px;
+       width: 150px;
        margin: 20px 0;
      }
 
@@ -56,12 +62,14 @@
 
      .label {
        font-weight: bold;
-       margin-top: 10px;
+       margin-top: 12px;
+       font-size: 20px;
      }
 
-     .good { color: #2e7d32; }
-     .bad { color: #c62828; }
-     .neutral { color: #616161; }
+     /* 吉凶の色分け */
+     .good { color: red; font-weight: bold; }
+     .bad { color: blue; font-weight: bold; }
+     .neutral { color: gray; font-weight: bold; }
 
      .hidden {
        display: none;
@@ -97,40 +105,118 @@
 
 <script>
 const cards = [
-   { name: "Via－道", fortune: "吉", meaning: "一本道・流れ・未来の目標", 
-investment: "トレンド追随・順張りが有効", image: "via.svg" },
-   { name: "Populus－人々", fortune: "中立", meaning: 
-"流される・不確定・集団の影響", investment: "加熱警戒・中立", image: 
-"populus.svg" },
-   { name: "Fortuna Major", fortune: "吉", meaning: 
-"大きな成功・長期の好機", investment: "上昇・買い増し", image: 
-"fortuna_major.svg" },
-   { name: "Fortuna Minor", fortune: "中立", meaning: "一時的な成功", 
-investment: "様子見", image: "fortuna_minor.svg" },
-   { name: "Acquisitio", fortune: "吉", meaning: "利益・増加", investment: 
-"強気", image: "acquisitio.svg" },
-   { name: "Amissio", fortune: "凶", meaning: "損失・手放し", investment: 
-"撤退", image: "amissio.svg" },
-   { name: "Laetitia", fortune: "吉", meaning: "喜び・上昇", investment: 
-"買い", image: "laetitia.svg" },
-   { name: "Tristitia", fortune: "凶", meaning: "停滞・下降", investment: 
-"売り", image: "tristitia.svg" },
-   { name: "Puer", fortune: "中立", meaning: "衝動・若さ", investment: 
-"短期", image: "puer.svg" },
-   { name: "Puella", fortune: "中立", meaning: "柔軟・受動", investment: 
-"維持", image: "puella.svg" },
-   { name: "Conjunctio", fortune: "中立", meaning: "結合・調和", investment: 
-"様子見", image: "conjunctio.svg" },
-   { name: "Carcer", fortune: "凶", meaning: "制限・停滞", investment: 
-"動かない", image: "carcer.svg" },
-   { name: "Rubeus", fortune: "凶", meaning: "混乱・危険", investment: 
-"縮小", image: "rubeus.svg" },
-   { name: "Albus", fortune: "中立", meaning: "冷静・知性", investment: 
-"分散", image: "albus.svg" },
-   { name: "Caput Draconis", fortune: "吉", meaning: "始まり・成長", 
-investment: "買い", image: "caput_draconis.svg" },
-   { name: "Cauda Draconis", fortune: "凶", meaning: "終わり・変化", 
-investment: "手じまい", image: "cauda_draconis.svg" }
+   {
+     name: "Via－道",
+     fortune: "吉",
+     meaning: "一本道・流れ・未来の目標",
+     investment: "トレンド追随・順張りが有効",
+     image: "via.svg"
+   },
+   {
+     name: "Populus－人々・大衆",
+     fortune: "中立",
+     meaning: "流される・不確定・多数・集団の影響",
+     investment: "加熱警戒・中立",
+     image: "populus.svg"
+   },
+   {
+     name: "Fortuna Major－大きな運命",
+     fortune: "吉",
+     meaning: "大きな成功・長く続く好機",
+     investment: "上昇・買い増し",
+     image: "fortuna_major.svg"
+   },
+   {
+     name: "Fortuna Minor－小さな運命",
+     fortune: "中立",
+     meaning: "一時的な成功・小さな幸運",
+     investment: "様子見・短期利確",
+     image: "fortuna_minor.svg"
+   },
+   {
+     name: "Acquisitio－獲得",
+     fortune: "吉",
+     meaning: "獲得・利益・成功・増加",
+     investment: "強気",
+     image: "acquisitio.svg"
+   },
+   {
+     name: "Amissio－損失",
+     fortune: "凶",
+     meaning: "損失・手放す・過去や悪いものからの解放",
+     investment: "損切り・撤退",
+     image: "amissio.svg"
+   },
+   {
+     name: "Laetitia－喜び",
+     fortune: "吉",
+     meaning: "喜び・上昇・前向きな気分・楽観",
+     investment: "買い増し好機",
+     image: "laetitia.svg"
+   },
+   {
+     name: "Tristitia－悲しみ",
+     fortune: "凶",
+     meaning: "停滞・下降・試練・トラウマ",
+     investment: "売り・下降トレンド",
+     image: "tristitia.svg"
+   },
+   {
+     name: "Puer－少年",
+     fortune: "中立",
+     meaning: "男性性・若さや好奇心・冒険心",
+     investment: "短期トレード",
+     image: "puer.svg"
+   },
+   {
+     name: "Puella－少女",
+     fortune: "中立",
+     meaning: "女性性・感受性・受動的・柔軟性",
+     investment: "現状維持",
+     image: "puella.svg"
+   },
+   {
+     name: "Conjunctio－結合",
+     fortune: "中立",
+     meaning: "結合・調和・連携や交流",
+     investment: "方向感はなし・新規は見送り",
+     image: "conjunctio.svg"
+   },
+   {
+     name: "Carcer－刑務所",
+     fortune: "凶",
+     meaning: "制限・停滞・障害・閉塞感",
+     investment: "動けない",
+     image: "carcer.svg"
+   },
+   {
+     name: "Rubeus－赤",
+     fortune: "凶",
+     meaning: "混乱・危険・矛盾・不安定",
+     investment: "警戒・ポジション縮小",
+     image: "rubeus.svg"
+   },
+   {
+     name: "Albus－白",
+     fortune: "中立",
+     meaning: "冷静・知性・純粋・誠実・洗練",
+     investment: "中立・分散投資",
+     image: "albus.svg"
+   },
+   {
+     name: "Caput Draconis－ドラゴンの頭",
+     fortune: "吉",
+     meaning: "始まり・発展・何かが開始する・成長",
+     investment: "強気・買い",
+     image: "caput_draconis.svg"
+   },
+   {
+     name: "Cauda Draconis－ドラゴンの尾",
+     fortune: "凶",
+     meaning: "終わり・損失・転じて変化や進展",
+     investment: "手じまい・売りならばよし",
+     image: "cauda_draconis.svg"
+   }
 ];
 
 function drawCard() {
@@ -140,8 +226,9 @@ function drawCard() {
 
    document.getElementById("cardImage").src = card.image;
    document.getElementById("cardName").textContent = card.name;
-   document.getElementById("meaning").textContent = card.meaning;
-   document.getElementById("investment").textContent = card.investment;
+   document.getElementById("meaning").textContent = "意味：" + card.meaning;
+   document.getElementById("investment").textContent = "投資判断：" + 
+card.investment;
 
    const fortuneEl = document.getElementById("fortune");
    fortuneEl.textContent = "吉凶：" + card.fortune;
