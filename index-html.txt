@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>ジオマンシー占い</title>
+
+   <style>
+     body {
+       font-family: "Segoe UI", sans-serif;
+       background: linear-gradient(135deg, #f5f5f5, #e0e0e0);
+       margin: 0;
+       padding: 20px;
+       display: flex;
+       justify-content: center;
+     }
+
+     .container {
+       max-width: 500px;
+       width: 100%;
+       background: white;
+       border-radius: 16px;
+       padding: 30px;
+       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+       text-align: center;
+     }
+
+     h1 {
+       margin-bottom: 20px;
+     }
+
+     button {
+       padding: 14px 24px;
+       font-size: 18px;
+       border: none;
+       border-radius: 10px;
+       background: #4CAF50;
+       color: white;
+       cursor: pointer;
+       transition: 0.2s;
+     }
+
+     button:hover {
+       background: #45a049;
+     }
+
+     img {
+       width: 140px;
+       margin: 20px 0;
+     }
+
+     .card {
+       margin-top: 20px;
+       text-align: left;
+     }
+
+     .label {
+       font-weight: bold;
+       margin-top: 10px;
+     }
+
+     .good { color: #2e7d32; }
+     .bad { color: #c62828; }
+     .neutral { color: #616161; }
+
+     .hidden {
+       display: none;
+     }
+   </style>
+</head>
+<body>
+
+<div class="container">
+   <h1>ジオマンシー占い</h1>
+
+   <button onclick="drawCard()">願いをこめてクリック</button>
+
+   <div id="result" class="card hidden">
+     <div style="text-align:center;">
+       <img id="cardImage" src="" alt="">
+       <h2 id="cardName"></h2>
+     </div>
+
+     <p id="fortune"></p>
+
+     <div>
+       <p class="label">意味</p>
+       <p id="meaning"></p>
+     </div>
+
+     <div>
+       <p class="label">投資判断</p>
+       <p id="investment"></p>
+     </div>
+   </div>
+</div>
+
+<script>
+const cards = [
+   { name: "Via－道", fortune: "吉", meaning: "一本道・流れ・未来の目標", 
+investment: "トレンド追随・順張りが有効", image: "via.svg" },
+   { name: "Populus－人々", fortune: "中立", meaning: 
+"流される・不確定・集団の影響", investment: "加熱警戒・中立", image: 
+"populus.svg" },
+   { name: "Fortuna Major", fortune: "吉", meaning: 
+"大きな成功・長期の好機", investment: "上昇・買い増し", image: 
+"fortuna_major.svg" },
+   { name: "Fortuna Minor", fortune: "中立", meaning: "一時的な成功", 
+investment: "様子見", image: "fortuna_minor.svg" },
+   { name: "Acquisitio", fortune: "吉", meaning: "利益・増加", investment: 
+"強気", image: "acquisitio.svg" },
+   { name: "Amissio", fortune: "凶", meaning: "損失・手放し", investment: 
+"撤退", image: "amissio.svg" },
+   { name: "Laetitia", fortune: "吉", meaning: "喜び・上昇", investment: 
+"買い", image: "laetitia.svg" },
+   { name: "Tristitia", fortune: "凶", meaning: "停滞・下降", investment: 
+"売り", image: "tristitia.svg" },
+   { name: "Puer", fortune: "中立", meaning: "衝動・若さ", investment: 
+"短期", image: "puer.svg" },
+   { name: "Puella", fortune: "中立", meaning: "柔軟・受動", investment: 
+"維持", image: "puella.svg" },
+   { name: "Conjunctio", fortune: "中立", meaning: "結合・調和", investment: 
+"様子見", image: "conjunctio.svg" },
+   { name: "Carcer", fortune: "凶", meaning: "制限・停滞", investment: 
+"動かない", image: "carcer.svg" },
+   { name: "Rubeus", fortune: "凶", meaning: "混乱・危険", investment: 
+"縮小", image: "rubeus.svg" },
+   { name: "Albus", fortune: "中立", meaning: "冷静・知性", investment: 
+"分散", image: "albus.svg" },
+   { name: "Caput Draconis", fortune: "吉", meaning: "始まり・成長", 
+investment: "買い", image: "caput_draconis.svg" },
+   { name: "Cauda Draconis", fortune: "凶", meaning: "終わり・変化", 
+investment: "手じまい", image: "cauda_draconis.svg" }
+];
+
+function drawCard() {
+   const card = cards[Math.floor(Math.random() * cards.length)];
+
+   document.getElementById("result").classList.remove("hidden");
+
+   document.getElementById("cardImage").src = card.image;
+   document.getElementById("cardName").textContent = card.name;
+   document.getElementById("meaning").textContent = card.meaning;
+   document.getElementById("investment").textContent = card.investment;
+
+   const fortuneEl = document.getElementById("fortune");
+   fortuneEl.textContent = "吉凶：" + card.fortune;
+
+   fortuneEl.className = "";
+   fortuneEl.classList.add(
+     card.fortune === "吉" ? "good" :
+     card.fortune === "凶" ? "bad" : "neutral"
+   );
+}
+</script>
+
+</body>
+</html>
