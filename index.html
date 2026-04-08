@@ -226,9 +226,8 @@ function drawCard() {
 
    document.getElementById("cardImage").src = card.image;
    document.getElementById("cardName").textContent = card.name;
-   document.getElementById("meaning").textContent = "意味：" + card.meaning;
-   document.getElementById("investment").textContent = "投資判断：" + 
-card.investment;
+   document.getElementById("meaning").textContent = card.meaning;
+   document.getElementById("investment").textContent = card.investment;
 
    const fortuneEl = document.getElementById("fortune");
    fortuneEl.textContent = "吉凶：" + card.fortune;
